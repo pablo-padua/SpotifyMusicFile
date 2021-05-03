@@ -382,7 +382,7 @@ public class PrintingSpotifyMusicInfo {
             readFile(false);
             closeFile();
         } catch (Exception e) {
-            System.out.printf("Error while opening the file: %s", e);
+            System.out.printf("An error occured: %s", e);
         }
     }
 }
