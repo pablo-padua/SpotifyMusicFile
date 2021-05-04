@@ -4,7 +4,7 @@ import java.io.FileReader;
 public class PrintingMusicData extends Music {
 
     private static BufferedReader file;
-    public static String filename = "/home/fabrica-bh/Downloads/dataAEDs.csv"; // Add your .csv file path
+    public static String filename = "/tmp/spotifyMusicData.csv"; // Add your .csv file path
 
     static String formattedDate = "";
     static String formattedArtists = "";
