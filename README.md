@@ -16,7 +16,7 @@ Spotify is a music, podcast and video streaming service officially launched on O
   <img src="https://imgur.com/hJVe1Bd.png">
 </p>
 
-This "spotifyMusicData.csv" file contains a set of data related to more than 175,000 songs collected from the Spotify Web API platform, which can be grouped by artist, year or genre. Such a file must be copied to the folder /tmp.
+This "spotifyMusicData.csv" file contains a set of data related to more than 175,000 songs collected from the Spotify Web API platform, which can be grouped by artist, year or genre. Such a file must be stored to the folder /tmp.
 
 The .csv file's content is sorted like this:
 <p>valence,year,acousticness,artists[ ],danceability,duration_ms,energy,explicit,id,instrumentalness,key,liveness,
