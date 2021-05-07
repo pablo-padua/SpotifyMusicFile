@@ -58,7 +58,6 @@ public class FormattingMusicArray extends PrintingMusicData {
         // Formatting artists list
         String artistas = fullSentence.get(indexOfValues++);
         artistas = artistas.replace("'", "");
-        formattedArtists = artistas;
         artistas = artistas.replace("[", "");
         artistas = artistas.replace("]", "");
         musicEntity.setArtists(artistas.split(", "));
@@ -78,28 +77,15 @@ public class FormattingMusicArray extends PrintingMusicData {
         String formattingSongName = fullSentence.get(indexOfValues++).replace("[", "");
         formattingSongName = formattingSongName.replace("]", "");
         musicEntity.setName(formattingSongName);
-
         musicEntity.setPopularity(Integer.parseInt(fullSentence.get(indexOfValues++)));
-
-        // Formatting Date, format should be "Double Digits Day / Double Digits Month / Four Digits Year" a.k.a "dd/mm/yyyy"
         if (fullSentence.get(16).length() <= 4) { // If date output is 'year' only, then add Jan 1st as official release date
-            formattedDate = fullSentence.get(16) + "-01-01";
-            LocalDate date = LocalDate.parse(formattedDate);
-            formattedDate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            formattedDate = formattedDate.replace("-", "/");
+            LocalDate date = LocalDate.parse(fullSentence.get(16) + "-01-01");
             musicEntity.setRelease_date(date);
-        } else if (fullSentence.get(16).length() > 4 && fullSentence.get(16).length() <= 7) {
-            formattedDate = fullSentence.get(16);
-            formattedDate = formattedDate + "-01"; // If date output is 'year' and 'month' only, then add '01' as Day.
-            LocalDate date = LocalDate.parse(formattedDate);
-            formattedDate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            formattedDate = formattedDate.replace("-", "/");
+        } else if (fullSentence.get(16).length() > 4 && fullSentence.get(16).length() <= 7) { // If day is missing, then add 01 as official day
+            LocalDate date = LocalDate.parse(fullSentence.get(16) + "-01");
             musicEntity.setRelease_date(date);
         } else { // If date is complete, just format it
-            formattedDate = fullSentence.get(16);
-            LocalDate date = LocalDate.parse(formattedDate);
-            formattedDate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            formattedDate = formattedDate.replace("-", "/");
+            LocalDate date = LocalDate.parse(fullSentence.get(16));
             musicEntity.setRelease_date(date);
         }
         indexOfValues++;
@@ -110,6 +96,12 @@ public class FormattingMusicArray extends PrintingMusicData {
 
     public static void printingValues(Music MusicEntity) {
         System.out.printf("%s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s%n",
+                // Formatting artists list so it prints without brackets
+                formattedArtists = Arrays.toString(music.getArtists()).replace("[", "");
+                formattedArtists = formattedArtists.replace("]", "");
+                // Formatting Date, format should be "Double Digits Day / Double Digits Month / Four Digits Year" a.k.a "dd/mm/yyyy"
+                formattedDate = music.getRelease_date().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                formattedDate = formattedDate.replace("-", "/");
                 MusicEntity.getId(), formattedArtists, MusicEntity.getName(),
                 formattedDate, MusicEntity.getAcousticness(),
                 MusicEntity.getDanceability(), MusicEntity.getInstrumentalness(),
